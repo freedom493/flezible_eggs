@@ -1,7 +1,11 @@
 const modal = document.getElementById("orderModal");
-const quantity = document.getElementById("quantity");
-const total = document.getElementById("total");
-const PRICE = 250;
+const smallQtyInput = document.getElementById("smallQuantity");
+const normalQtyInput = document.getElementById("normalQuantity");
+const totalEggsDisplay = document.getElementById("totalEggs");
+const totalDisplay = document.getElementById("total");
+
+const PRICE_SMALL = 150;
+const PRICE_NORMAL = 250;
 const WHATSAPP = "2348060856036";
 
 function openModal() {
@@ -14,12 +18,23 @@ function closeModal() {
 }
 
 function updateTotal() {
-  const qty = Math.max(1, parseInt(quantity.value || "1", 10));
-  quantity.value = qty;
-  total.textContent = "₦" + (qty * PRICE).toLocaleString("en-NG");
+  const smallQty = Math.max(0, parseInt(smallQtyInput.value || "0", 10));
+  const normalQty = Math.max(0, parseInt(normalQtyInput.value || "0", 10));
+
+  smallQtyInput.value = smallQty;
+  normalQtyInput.value = normalQty;
+
+  const totalEggs = smallQty + normalQty;
+  const amount = (smallQty * PRICE_SMALL) + (normalQty * PRICE_NORMAL);
+
+  if (totalEggsDisplay) {
+    totalEggsDisplay.textContent = totalEggs + " egg(s)";
+  }
+  totalDisplay.textContent = "₦" + amount.toLocaleString("en-NG");
 }
 
-quantity.addEventListener("input", updateTotal);
+smallQtyInput.addEventListener("input", updateTotal);
+normalQtyInput.addEventListener("input", updateTotal);
 
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeModal();
@@ -29,25 +44,67 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
 });
 
+// Increment & Decrement Handlers for Small Eggs
+function incrementSmall() {
+  smallQtyInput.value = parseInt(smallQtyInput.value || "0", 10) + 1;
+  updateTotal();
+}
+
+function decrementSmall() {
+  let val = parseInt(smallQtyInput.value || "0", 10);
+  if (val > 0) smallQtyInput.value = val - 1;
+  updateTotal();
+}
+
+// Increment & Decrement Handlers for Normal Eggs
+function incrementNormal() {
+  normalQtyInput.value = parseInt(normalQtyInput.value || "0", 10) + 1;
+  updateTotal();
+}
+
+function decrementNormal() {
+  let val = parseInt(normalQtyInput.value || "0", 10);
+  if (val > 0) normalQtyInput.value = val - 1;
+  updateTotal();
+}
+
+// Form Submission & WhatsApp Order String Builder
 document.getElementById("orderForm").addEventListener("submit", (event) => {
   event.preventDefault();
 
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
-  const qty = parseInt(quantity.value, 10);
+  const smallQty = parseInt(smallQtyInput.value || "0", 10);
+  const normalQty = parseInt(normalQtyInput.value || "0", 10);
+  const totalEggs = smallQty + normalQty;
+
+  if (totalEggs === 0) {
+    alert("Please select at least one egg (small or normal) to order.");
+    return;
+  }
+
   const delivery = document.getElementById("delivery").value.trim();
   const type = document.getElementById("type").value;
   const note = document.getElementById("note").value.trim();
-  const amount = qty * PRICE;
+  const amount = (smallQty * PRICE_SMALL) + (normalQty * PRICE_NORMAL);
 
   let message =
     "Hello Flezible Eggs! 🥚%0A%0A" +
     "*New Order*%0A" +
     "Name: " + encodeURIComponent(name) + "%0A" +
     "Phone: " + encodeURIComponent(phone) + "%0A" +
-    "Egg type: " + encodeURIComponent(type) + "%0A" +
-    "Quantity: " + qty + "%0A" +
-    "Total: ₦" + amount.toLocaleString("en-NG") + "%0A" +
+    "Egg type: " + encodeURIComponent(type) + "%0A";
+
+  if (smallQty > 0) {
+    message += "• Small Eggs (₦150): " + smallQty + "%0A";
+  }
+  if (normalQty > 0) {
+    message += "• Normal Eggs (₦250): " + normalQty + "%0A";
+  }
+
+  message +=
+    "Total Number of Eggs: " + totalEggs + "%0A" +
+    "Total Amount: ₦" + amount.toLocaleString("en-NG") + "%0A" +
     "Delivery location: " + encodeURIComponent(delivery);
 
   if (note) {
@@ -56,30 +113,3 @@ document.getElementById("orderForm").addEventListener("submit", (event) => {
 
   window.location.href = "https://wa.me/" + WHATSAPP + "?text=" + message;
 });
-
-const input = document.getElementById('quantity');
-
-function incrementValue() {
-  const max = parseInt(input.max) || Infinity;
-  let currentValue = input.value === "" ? 0 : parseInt(input.value);
-
-  if (currentValue < max) {
-    input.value = currentValue + 1;
-  }
-}
-
-function decrementValue() {
-  const min = parseInt(input.min) || 1;
-  let currentValue = input.value === "" ? 0 : parseInt(input.value);
-
-  if (currentValue > min) {
-    input.value = currentValue - 1;
-  }
-}
-
-input.addEventListener('blur', () => {
-  const min = parseInt(input.min) || 1;
-  const max = parseInt(input.max) || Infinity;
-})
-
-input.addEventListener("input", function () { });
