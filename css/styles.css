@@ -178,21 +178,8 @@ h1 span {
   border: 1px solid var(--line);
 }
 
-.hero-card {
-  min-height: 390px;
-  border-radius: 30px;
-  background: white;
-  border: 1px solid var(--line);
-  box-shadow: 0 25px 70px rgba(80, 45, 25, .10);
-  display: grid;
-  place-items: center;
-  padding: 15px;
-  position: relative;
-  overflow: hidden;
-}
-
 .img {
-  border-radius: 18px;
+  border-radius: 15px;
 }
 
 .section {
@@ -387,6 +374,45 @@ textarea {
   color: var(--muted);
   text-align: center;
   margin-bottom: 0;
+}
+
+.num-inp-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  width: 80%;
+  overflow: hidden;
+}
+
+.num-inp-wrap button {
+  background-color: #f0f0f0;
+  border: none;
+  height: 50px; 
+  width: 50px;
+  border-radius: px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.num-inp-wrap button:hover {
+  background-color: #e0e0e0;
+}
+
+.num-inp-wrap input {
+  border: none;
+  text-align: center;
+  width: 25%;
+  font-size: 16px;
+  outline: none;
+}
+
+.num-inp-wrap input:focus {
+  border: none;
+  box-shadow: none;
 }
 
 @media (max-width: 800px) {

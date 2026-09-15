@@ -47,7 +47,6 @@ document.getElementById("orderForm").addEventListener("submit", (event) => {
     "Phone: " + encodeURIComponent(phone) + "%0A" +
     "Egg type: " + encodeURIComponent(type) + "%0A" +
     "Quantity: " + qty + "%0A" +
-    "Price per egg: ₦250%0A" +
     "Total: ₦" + amount.toLocaleString("en-NG") + "%0A" +
     "Delivery location: " + encodeURIComponent(delivery);
 
@@ -57,3 +56,30 @@ document.getElementById("orderForm").addEventListener("submit", (event) => {
 
   window.location.href = "https://wa.me/" + WHATSAPP + "?text=" + message;
 });
+
+const input = document.getElementById('quantity');
+
+function incrementValue() {
+  const max = parseInt(input.max) || Infinity;
+  let currentValue = input.value === "" ? 0 : parseInt(input.value);
+
+  if (currentValue < max) {
+    input.value = currentValue + 1;
+  }
+}
+
+function decrementValue() {
+  const min = parseInt(input.min) || 1;
+  let currentValue = input.value === "" ? 0 : parseInt(input.value);
+
+  if (currentValue > min) {
+    input.value = currentValue - 1;
+  }
+}
+
+input.addEventListener('blur', () => {
+  const min = parseInt(input.min) || 1;
+  const max = parseInt(input.max) || Infinity;
+})
+
+input.addEventListener("input", function () { });
