@@ -1,0 +1,413 @@
+:root {
+  --brand: #b84b27;
+  --brand-dark: #8f3518;
+  --cream: #fffaf5;
+  --ink: #211a17;
+  --muted: #716761;
+  --white: #ffffff;
+  --line: #eadfd7;
+  --success: #17834b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 250, 245, .92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(234, 223, 215, .8);
+}
+
+.nav {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.nav-cta {
+  border: 0;
+  color: white;
+  background: var(--brand);
+  padding: 11px 17px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.hero {
+  padding: 76px 0 55px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(184, 75, 39, .15), transparent 28%),
+    linear-gradient(135deg, #fffaf5 0%, #fff3e9 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f6dfd4;
+  color: var(--brand-dark);
+  font-weight: 800;
+  font-size: .88rem;
+}
+
+h1 {
+  margin: 18px 0 15px;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  line-height: .98;
+  letter-spacing: -0.055em;
+}
+
+h1 span {
+  color: var(--brand);
+}
+
+.hero p {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.price strong {
+  font-size: 2.3rem;
+  color: var(--brand);
+}
+
+.price small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.primary,
+.secondary {
+  border: 0;
+  padding: 14px 20px;
+  border-radius: 13px;
+  font-weight: 850;
+  transition: .2s ease;
+}
+
+.primary {
+  background: var(--brand);
+  color: white;
+  box-shadow: 0 10px 24px rgba(184, 75, 39, .2);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  background: var(--brand-dark);
+}
+
+.secondary {
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.hero-card {
+  min-height: 390px;
+  border-radius: 30px;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 25px 70px rgba(80, 45, 25, .10);
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.img {
+  border-radius: 18px;
+}
+
+.section {
+  padding: 70px 0;
+}
+
+.section h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 10px;
+  letter-spacing: -.04em;
+}
+
+.section-intro {
+  color: var(--muted);
+  max-width: 650px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.feature {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+}
+
+.feature h3 {
+  margin: 13px 0 5px;
+}
+
+.feature p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.how {
+  background: #211a17;
+  color: white;
+}
+
+.how .section-intro {
+  color: #cfc4be;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.step {
+  border: 1px solid #493d37;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.step-number {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand);
+  font-weight: 900;
+}
+
+footer {
+  padding: 30px 0;
+  background: #17120f;
+  color: #bfb3ac;
+  text-align: center;
+  font-size: .92rem;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(20, 14, 11, .68);
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-box {
+  width: min(520px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  background: white;
+  border-radius: 24px;
+  padding: 26px;
+  position: relative;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .25);
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3eeeb;
+  font-size: 1.3rem;
+}
+
+.modal h2 {
+  margin: 0 42px 6px 0;
+}
+
+.modal-sub {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+label {
+  font-weight: 800;
+  font-size: .9rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  outline: none;
+  background: #fffdfa;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(184, 75, 39, .1);
+}
+
+textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.summary {
+  margin-top: 5px;
+  background: #fff4ed;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 850;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 6px;
+  border: 0;
+  border-radius: 13px;
+  padding: 14px;
+  background: #17834b;
+  color: white;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.note {
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 45px;
+  }
+
+  .hero-card {
+    min-height: 300px;
+  }
+
+  .features,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    height: 64px;
+  }
+}
