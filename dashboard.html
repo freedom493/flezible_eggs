@@ -1,154 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard — Flezible Eggs</title>
-<style>
-  :root {
-    --bg: #fffaf0;
-    --card: #ffffff;
-    --text: #2b2210;
-    --muted: #7a6f57;
-    --accent: #e0a527;
-    --accent-dark: #b9820f;
-    --border: #ecdfc0;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-  }
-  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; }
-  .brand span:first-child { font-size: 22px; }
-  #logout-btn {
-    padding: 9px 16px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-  }
-  #logout-btn:hover { background: #f5eed8; }
-  main {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 32px 24px;
-  }
-  .welcome-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
-  }
-  .welcome-card h1 {
-    font-size: 20px;
-    margin: 0 0 6px;
-  }
-  .welcome-card p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 14px;
-  }
-  .section-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-  }
-  .section-card h2 {
-    font-size: 16px;
-    margin: 0 0 12px;
-  }
-  .empty-state {
-    text-align: center;
-    padding: 32px 12px;
-    color: var(--muted);
-    font-size: 14px;
-  }
-  .empty-state .icon { font-size: 32px; margin-bottom: 8px; }
-  .loading {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Flezible Eggs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#b84b27', dark: '#8f3518' },
+            cream: '#fffaf5', ink: '#211a17', muted: '#716761',
+            line: '#eadfd7', success: '#17834b', yolk: '#f2a93b'
+          },
+          fontFamily: { display: ['Sora', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
 
-<div id="loading" class="loading">Loading your dashboard...</div>
+<body class="bg-cream text-ink font-body min-h-screen">
 
-<div id="app" style="display:none;">
-  <header>
-    <div class="brand"><span>🥚</span><span>Flezible Eggs</span></div>
-    <button id="logout-btn">Log Out</button>
-  </header>
+  <div id="loading" class="text-center py-24 text-muted">Loading your dashboard...</div>
 
-  <main>
-    <div class="welcome-card">
-      <h1 id="welcome-name">Welcome back!</h1>
-      <p id="welcome-email"></p>
-    </div>
-
-    <div class="section-card">
-      <h2>Your Orders</h2>
-      <!-- Phase 2: replace this with a live query against the `orders` table -->
-      <div class="empty-state">
-        <div class="icon">📦</div>
-        Order history is coming soon.<br>
-        For now, place orders on WhatsApp from the main site.
+  <div id="app" class="hidden">
+    <header class="flex items-center justify-between px-6 py-4 bg-white border-b border-line">
+      <div class="flex items-center gap-2 font-display font-extrabold text-lg">
+        <span class="text-2xl">🥚</span><span>Flezible Eggs</span>
       </div>
-    </div>
-  </main>
-</div>
+      <button id="logout-btn"
+        class="px-4 py-2 border border-line rounded-lg text-sm font-bold text-muted hover:bg-[#f5eed8] transition-colors">
+        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Log Out
+      </button>
+    </header>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./js/supabase-client.js"></script>
-<script>
-  (async () => {
-    const { data: { session } } = await supabaseClient.auth.getSession();
+    <main class="max-w-[640px] mx-auto px-6 py-8">
+      <div class="bg-white border border-line rounded-2xl p-6 mb-5">
+        <h1 id="welcome-name" class="font-display font-extrabold text-xl mb-1">Welcome back!</h1>
+        <p id="welcome-email" class="text-muted text-sm m-0"></p>
+      </div>
 
-    if (!session) {
+      <div class="bg-white border border-line rounded-2xl p-6">
+        <h2 class="font-display font-bold text-base mb-3">Your Orders</h2>
+        <!-- Phase 2: replace with a live query against `orders` + `order_items` -->
+        <div class="text-center py-8 px-3 text-muted">
+          <div class="text-3xl mb-2">📦</div>
+          Order history is coming soon.<br>
+          For now, place orders on WhatsApp from the main site.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabase-client.js"></script>
+  <script>
+      (async () => {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+
+        if (!session) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = session.user;
+        const fullName = user.user_metadata?.full_name || "there";
+
+        document.getElementById("welcome-name").textContent = `Welcome, ${fullName}!`;
+        document.getElementById("welcome-email").textContent = user.email;
+
+        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("app").classList.remove("hidden");
+      })();
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await supabaseClient.auth.signOut();
       window.location.href = "login.html";
-      return;
-    }
+    });
 
-    const user = session.user;
-    const fullName = user.user_metadata?.full_name || "there";
-
-    document.getElementById("welcome-name").textContent = `Welcome, ${fullName}!`;
-    document.getElementById("welcome-email").textContent = user.email;
-
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("app").style.display = "block";
-  })();
-
-  document.getElementById("logout-btn").addEventListener("click", async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
-  });
-
-  // Keep the page in sync if the session ends elsewhere (e.g. token expiry).
-  supabaseClient.auth.onAuthStateChange((event) => {
-    if (event === "SIGNED_OUT") {
-      window.location.href = "login.html";
-    }
-  });
-</script>
+    supabaseClient.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
 
 </body>
+
 </html>

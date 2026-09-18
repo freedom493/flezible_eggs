@@ -9,12 +9,14 @@ const PRICE_NORMAL = 250;
 const WHATSAPP = "2348060856036";
 
 function openModal() {
-  modal.classList.add("open");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
   document.getElementById("name").focus();
 }
 
 function closeModal() {
-  modal.classList.remove("open");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
 }
 
 function updateTotal() {
@@ -44,7 +46,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
 });
 
-// Increment & Decrement Handlers for Small Eggs
 function incrementSmall() {
   smallQtyInput.value = parseInt(smallQtyInput.value || "0", 10) + 1;
   updateTotal();
@@ -56,7 +57,6 @@ function decrementSmall() {
   updateTotal();
 }
 
-// Increment & Decrement Handlers for Normal Eggs
 function incrementNormal() {
   normalQtyInput.value = parseInt(normalQtyInput.value || "0", 10) + 1;
   updateTotal();
@@ -68,7 +68,6 @@ function decrementNormal() {
   updateTotal();
 }
 
-// Form Submission & WhatsApp Order String Builder
 document.getElementById("orderForm").addEventListener("submit", (event) => {
   event.preventDefault();
 
