@@ -61,7 +61,9 @@
 <body class="bg-cream text-ink font-body min-h-screen flex items-center justify-center p-6">
 
   <div class="w-full max-w-[380px] bg-white border border-line rounded-2xl p-8 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
-    <div class="text-center text-3xl mb-1">🥚</div>
+    <div class="flex justify-center mb-3">
+      <img src="./images/logo.png" alt="Flezible Eggs logo" class="w-[180px] h-auto" />
+    </div>
     <h1 class="font-display font-extrabold text-xl text-center mb-6">Create your Flezible Eggs account</h1>
 
     <form id="signup-form" class="space-y-4">
@@ -107,6 +109,7 @@
     const form = document.getElementById("signup-form");
     const msg = document.getElementById("msg");
     const btn = document.getElementById("submit-btn");
+    const returnTo = new URLSearchParams(window.location.search).get("redirect") || "dashboard.html";
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -135,7 +138,7 @@
       }
 
       if (data.session) {
-        window.location.href = "dashboard.html";
+        window.location.href = returnTo;
       } else {
         msg.textContent = "Account created! Check your email to confirm, then log in.";
         msg.classList.add("text-green-700");

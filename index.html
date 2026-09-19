@@ -43,22 +43,27 @@
 <body class="bg-cream text-ink font-body min-h-screen">
   <header class="site-header">
     <div class="container-shell flex items-center justify-between py-4">
-      <a href="./index.html" class="brand-mark">
-        <span class="brand-emblem">🥚</span>
-        <span>Flezible Eggs</span>
+      <a href="./index.html" class="brand-mark" aria-label="Flezible Eggs homepage">
+        <img src="./images/logo.png" alt="Flezible Eggs logo" class="brand-logo" />
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-muted">
-        <a href="#offers">Offers</a>
-        <a href="#how">How it works</a>
-        <a href="./about.html">About</a>
-        <a href="./login.html">Account</a>
-      </nav>
+      <div class="relative flex items-center gap-3">
+        <nav class="nav-menu hidden md:flex items-center gap-8 text-sm font-semibold text-muted">
+          <a href="#offers">Offers</a>
+          <a href="#how">How it works</a>
+          <a href="./about.html">About</a>
+          <a href="./login.html">Account</a>
+        </nav>
 
-      <button id="cartToggle" type="button" class="cart-button" aria-label="Open cart">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span id="cartBadge" class="cart-badge hidden">0</span>
-      </button>
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <button id="cartToggle" type="button" class="cart-button" aria-label="Open cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cartBadge" class="cart-badge hidden">0</span>
+        </button>
+      </div>
     </div>
   </header>
 

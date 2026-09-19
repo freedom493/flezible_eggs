@@ -146,6 +146,26 @@
     if (checkoutBtn) checkoutBtn.disabled = false;
   }
 
+  function setupMobileNavigation() {
+    const toggle = document.querySelector('.mobile-nav-toggle');
+    const menu = document.querySelector('.nav-menu');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+  }
+
   function openCartDrawer() {
     const drawer = document.getElementById('cartDrawer');
     const overlay = document.getElementById('cartOverlay');
@@ -651,17 +671,29 @@
     const profileUpdateNotice = document.getElementById('profileUpdateNotice');
     profileForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+
       const payload = {
         id: user.id,
         full_name: document.getElementById('fullName').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         delivery_address: document.getElementById('deliveryAddress').value.trim(),
         notifications_enabled: document.getElementById('notificationsEnabled').checked,
-        updated_at: new Date().toISOString()
+        is_admin: false
       };
 
-      const { error } = await supabaseClient.from('profiles').upsert(payload, { onConflict: 'id' });
+      let query = supabaseClient.from('profiles');
+      const existingProfile = await supabaseClient
+        .from('profiles')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      const { data, error } = existingProfile?.data
+        ? await query.update(payload).eq('id', user.id)
+        : await query.insert(payload);
+
       if (error) {
+        console.error(error);
         profileUpdateNotice.textContent = 'Unable to save your profile right now.';
         profileUpdateNotice.className = 'mt-3 text-sm text-danger';
         return;
@@ -1060,6 +1092,8 @@
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
+    setupMobileNavigation();
+
     if (typeof supabaseClient === 'undefined') return;
 
     const path = window.location.pathname;

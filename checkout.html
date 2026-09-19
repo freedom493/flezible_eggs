@@ -42,15 +42,20 @@
 <body class="bg-cream text-ink font-body min-h-screen">
   <header class="site-header">
     <div class="container-shell flex items-center justify-between py-4">
-      <a href="./index.html" class="brand-mark">
-        <span class="brand-emblem">🥚</span>
-        <span>Flezible Eggs</span>
+      <a href="./index.html" class="brand-mark" aria-label="Flezible Eggs homepage">
+        <img src="./images/logo.png" alt="Flezible Eggs logo" class="brand-logo" />
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-muted">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./dashboard.html">Dashboard</a>
-      </nav>
+      <div class="relative flex items-center gap-3">
+        <nav class="nav-menu hidden md:flex items-center gap-6 text-sm font-semibold text-muted">
+          <a href="./index.html">Home</a>
+          <a href="./about.html">About</a>
+          <a href="./dashboard.html">Dashboard</a>
+        </nav>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
   </header>
 
