@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const CART_KEY = 'flezible_eggs_cart_v1';
   const WHATSAPP_NUMBER = '2348060856036';
   const pagePath = window.location.pathname.split('/').pop() || 'index.html';
@@ -182,13 +182,15 @@
     overlay.classList.add('hidden');
   }
 
-  function createWhatsAppMessage(orderItems, deliveryAddress, preparation, note) {
+  function createWhatsAppMessage(orderItems, deliveryAddress, preparation, note, customerName, orderId) {
     const lines = [
       'Hello Flezible Eggs! 🥚',
       '',
-      '*New Order*',
+      '*New Order*' + (orderId ? ` (Ref: #${orderId.slice(0, 8)})` : ''),
+      ...(customerName ? ['Customer: ' + customerName] : []),
       'Delivery address: ' + deliveryAddress,
       'Preparation: ' + preparation,
+      '',
       'Order items:'
     ];
 
@@ -197,13 +199,14 @@
     }
 
     const total = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity || 0)), 0);
+    lines.push('');
     lines.push('Total: ' + formatMoney(total));
 
     if (note) {
       lines.push('Note: ' + note);
     }
 
-    return encodeURIComponent(lines.join('%0A'));
+    return encodeURIComponent(lines.join('\n'));
   }
 
   async function homePageInit() {
@@ -223,14 +226,19 @@
       cartCloseBtn.addEventListener('click', closeCartDrawer);
     }
     if (cartCheckoutBtn) {
-      cartCheckoutBtn.addEventListener('click', () => {
+      cartCheckoutBtn.addEventListener('click', async () => {
         closeCartDrawer();
-        const { data: { session } } = supabaseClient.auth.getSession();
-        if (!session) {
+        try {
+          const { data: { session } } = await supabaseClient.auth.getSession();
+          if (!session) {
+            window.location.href = './login.html?redirect=checkout.html';
+            return;
+          }
+          window.location.href = './checkout.html';
+        } catch (err) {
+          console.error('Auth session error:', err);
           window.location.href = './login.html?redirect=checkout.html';
-          return;
         }
-        window.location.href = './checkout.html';
       });
     }
 
@@ -239,11 +247,12 @@
       if (addButton) {
         const productId = addButton.dataset.productId;
         const input = document.querySelector(`[data-quantity-input="${productId}"]`);
-        const qty = Number(input ? input.value : 0) || 0;
-        if (qty > 0) {
-          addToCart(productId, qty);
-          if (input) input.value = 0;
+        let qty = Number(input ? input.value : 0) || 0;
+        if (qty <= 0) {
+          qty = 1;
         }
+        addToCart(productId, qty);
+        if (input) input.value = 1;
       }
 
       const cartAction = event.target.closest('[data-cart-action]');
@@ -299,32 +308,40 @@
     }
 
     const products = data || [];
-    productGrid.innerHTML = products.map((product) => `
-      <article class="product-card">
-        <div class="product-illustration">🥚</div>
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <h3 class="font-display text-2xl text-ink leading-none">${safeText(product.name)}</h3>
-            <p class="text-sm text-muted mt-2">${product.egg_count} eggs</p>
-          </div>
-          <span class="pill pill-soft">Fresh</span>
-        </div>
+    productGrid.innerHTML = products.map((product) => {
+      const imageMarkup = product.image_url
+        ? `<div class="product-image-box">
+             <img src="${product.image_url}" alt="${safeText(product.name)}" class="product-photo" onerror="this.parentElement.innerHTML='<div class=\'product-illustration\'>🥚</div>'" />
+           </div>`
+        : `<div class="product-illustration">🥚</div>`;
 
-        <div class="mt-5 flex items-end justify-between">
-          <div>
-            <div class="font-display text-3xl text-clay">${formatMoney(product.price)}</div>
-            <div class="text-[11px] uppercase tracking-[0.18em] text-muted">per pack</div>
+      return `
+        <article class="product-card">
+          ${imageMarkup}
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="font-display text-2xl text-ink leading-none">${safeText(product.name)}</h3>
+              <p class="text-sm text-muted mt-2">${product.egg_count} eggs</p>
+            </div>
+            <span class="pill pill-soft">Fresh</span>
           </div>
-          <div class="quantity-stepper">
-            <button type="button" data-stepper="decrease" data-product-id="${product.id}" aria-label="Decrease quantity">−</button>
-            <input type="number" min="0" value="0" data-quantity-input="${product.id}" aria-label="Quantity for ${safeText(product.name)}">
-            <button type="button" data-stepper="increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button>
-          </div>
-        </div>
 
-        <button type="button" class="button-primary w-full mt-4 add-to-cart-btn" data-product-id="${product.id}">Add to cart</button>
-      </article>
-    `).join('');
+          <div class="mt-5 flex items-end justify-between">
+            <div>
+              <div class="font-display text-3xl text-clay">${formatMoney(product.price)}</div>
+              <div class="text-[11px] uppercase tracking-[0.18em] text-muted">per pack</div>
+            </div>
+            <div class="quantity-stepper">
+              <button type="button" data-stepper="decrease" data-product-id="${product.id}" aria-label="Decrease quantity">−</button>
+              <input type="number" min="1" value="1" data-quantity-input="${product.id}" aria-label="Quantity for ${safeText(product.name)}">
+              <button type="button" data-stepper="increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <button type="button" class="button-primary w-full mt-4 add-to-cart-btn" data-product-id="${product.id}">Add to cart</button>
+        </article>
+      `;
+    }).join('');
 
     document.body.addEventListener('click', (event) => {
       const stepperButton = event.target.closest('[data-stepper]');
