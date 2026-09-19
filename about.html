@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Flezible Eggs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            egg: '#f7f1e8',
+            cream: '#fffaf4',
+            forest: '#173f2d',
+            clay: '#b75b32',
+            ink: '#1d1a17',
+            line: '#e7dccd',
+            muted: '#756a62'
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="bg-cream text-ink font-body min-h-screen">
+  <header class="site-header">
+    <div class="container-shell flex items-center justify-between py-4">
+      <a href="./index.html" class="brand-mark">
+        <span class="brand-emblem">🥚</span>
+        <span>Flezible Eggs</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-muted">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./login.html">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-shell py-12 md:py-16">
+    <section class="site-card p-8 md:p-12 max-w-4xl mx-auto">
+      <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold mb-3">Who we are</p>
+      <h1 class="font-display text-4xl md:text-5xl mb-5">Fresh eggs, delivered with a student-first mindset.</h1>
+      <p class="text-lg text-muted leading-8">
+        Flezible Eggs was built around a simple need: students want healthy, reliable food without the stress of leaving
+        campus or waiting around for errands. We bring fresh eggs directly to your door, with flexible ordering and a
+        delivery experience designed around convenience.
+      </p>
+      <p class="mt-5 text-lg text-muted leading-8">
+        We focus on quality, honest pricing, and dependable service. Whether you are stocking up for the week or topping
+        off a quick breakfast, we want every egg drop to feel easy, clean, and reliable.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-shell flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2026 Flezible Eggs</p>
+      <nav class="flex gap-5 text-sm text-muted">
+        <a href="./about.html">About</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+
+</html>

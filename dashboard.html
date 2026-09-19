@@ -1,101 +1,122 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard — Flezible Eggs</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: { DEFAULT: '#b84b27', dark: '#8f3518' },
-            cream: '#fffaf5', ink: '#211a17', muted: '#716761',
-            line: '#eadfd7', success: '#17834b', yolk: '#f2a93b'
+            egg: '#f7f1e8',
+            cream: '#fffaf4',
+            forest: '#173f2d',
+            clay: '#b75b32',
+            ink: '#1d1a17',
+            line: '#e7dccd',
+            muted: '#756a62'
           },
-          fontFamily: { display: ['Sora', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            body: ['Inter', 'sans-serif']
+          }
         }
       }
     }
   </script>
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body class="bg-cream text-ink font-body min-h-screen">
-
-  <div id="loading" class="text-center py-24 text-muted">Loading your dashboard...</div>
-
-  <div id="app" class="hidden">
-    <header class="flex items-center justify-between px-6 py-4 bg-white border-b border-line">
-      <div class="flex items-center gap-2 font-display font-extrabold text-lg">
-        <span class="text-2xl">🥚</span><span>Flezible Eggs</span>
+  <header class="site-header">
+    <div class="container-shell flex items-center justify-between py-4">
+      <a href="./index.html" class="brand-mark">
+        <span class="brand-emblem">🥚</span>
+        <span>Flezible Eggs</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="text-sm font-semibold text-muted">Home</a>
+        <button id="logoutBtn" class="button-secondary text-sm px-4 py-2">Log out</button>
       </div>
-      <button id="logout-btn"
-        class="px-4 py-2 border border-line rounded-lg text-sm font-bold text-muted hover:bg-[#f5eed8] transition-colors">
-        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Log Out
-      </button>
-    </header>
+    </div>
+  </header>
 
-    <main class="max-w-[640px] mx-auto px-6 py-8">
-      <div class="bg-white border border-line rounded-2xl p-6 mb-5">
-        <h1 id="welcome-name" class="font-display font-extrabold text-xl mb-1">Welcome back!</h1>
-        <p id="welcome-email" class="text-muted text-sm m-0"></p>
+  <main class="container-shell py-8 md:py-12">
+    <div id="loading" class="text-center py-20 text-muted">Loading your dashboard...</div>
+
+    <div id="app" class="hidden">
+      <div class="site-card p-6 md:p-7 mb-6">
+        <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold mb-2">Your account</p>
+        <h1 class="font-display text-4xl md:text-5xl">Dashboard</h1>
       </div>
 
-      <div class="bg-white border border-line rounded-2xl p-6">
-        <h2 class="font-display font-bold text-base mb-3">Your Orders</h2>
-        <!-- Phase 2: replace with a live query against `orders` + `order_items` -->
-        <div class="text-center py-8 px-3 text-muted">
-          <div class="text-3xl mb-2">📦</div>
-          Order history is coming soon.<br>
-          For now, place orders on WhatsApp from the main site.
+      <div class="site-card p-3 md:p-4 mb-6">
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="tab-button active" data-tab="profile">Update Profile</button>
+          <button type="button" class="tab-button" data-tab="orders">Orders</button>
         </div>
       </div>
-    </main>
+
+      <div data-tab-panel="profile" class="site-card p-6 md:p-7">
+        <h2 class="font-display text-2xl mb-4">Your details</h2>
+        <form id="profileForm" class="space-y-5">
+          <div>
+            <label for="fullName" class="input-label">Full name</label>
+            <input id="fullName" type="text" class="field" />
+          </div>
+          <div>
+            <label for="phone" class="input-label">Phone</label>
+            <input id="phone" type="tel" class="field" />
+          </div>
+          <div>
+            <label for="deliveryAddress" class="input-label">Delivery address</label>
+            <textarea id="deliveryAddress" rows="3" class="field"></textarea>
+          </div>
+          <label class="flex items-center gap-3 text-sm font-medium text-ink">
+            <input id="notificationsEnabled" type="checkbox" class="w-4 h-4 accent-clay" />
+            Receive order updates and notifications
+          </label>
+          <button type="submit" class="button-primary">Save changes</button>
+          <div id="profileUpdateNotice" class="text-sm min-h-5"></div>
+        </form>
+      </div>
+
+      <div data-tab-panel="orders" class="site-card p-6 md:p-7 hidden">
+        <h2 class="font-display text-2xl mb-4">Order history</h2>
+        <div id="orderList" class="space-y-3"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="trackingModal" class="modal-overlay hidden">
+    <div class="modal-box w-full max-w-xl">
+      <div id="trackingContent"></div>
+    </div>
   </div>
+
+  <footer class="site-footer">
+    <div class="container-shell flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2026 Flezible Eggs</p>
+      <nav class="flex gap-5 text-sm text-muted">
+        <a href="./about.html">About</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./js/supabase-client.js"></script>
-  <script>
-      (async () => {
-        const { data: { session } } = await supabaseClient.auth.getSession();
-
-        if (!session) {
-          window.location.href = "login.html";
-          return;
-        }
-
-        const user = session.user;
-        const fullName = user.user_metadata?.full_name || "there";
-
-        document.getElementById("welcome-name").textContent = `Welcome, ${fullName}!`;
-        document.getElementById("welcome-email").textContent = user.email;
-
-        document.getElementById("loading").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-      })();
-
-    document.getElementById("logout-btn").addEventListener("click", async () => {
-      await supabaseClient.auth.signOut();
-      window.location.href = "login.html";
-    });
-
-    supabaseClient.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") {
-        window.location.href = "login.html";
-      }
-    });
-  </script>
-
+  <script src="./js/script.js"></script>
 </body>
 
 </html>

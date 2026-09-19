@@ -1,41 +1,36 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flezible Eggs — Fresh Eggs Delivered</title>
-  <meta name="description"
-    content="Flezible Eggs — fresh eggs for students. Order by the crate or by the egg, delivered to your hostel." />
-  <meta property="og:title" content="Flezible Eggs - Fresh Eggs Delivered">
-  <meta property="og:description"
-    content="Flezible Eggs — fresh eggs for students. Order by the crate or by the egg, delivered to your hostel.">
-  <meta property="og:image" content="https://flezible-eggs.netlify.app/images/hero-image.png">
-  <meta property="og:url" content="https://flezible-eggs.netlify.app/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Flezible Eggs">
-
+  <title>Flezible Eggs — Fresh eggs delivered to students</title>
+  <meta name="description" content="Fresh eggs delivered to students. Skip the market, keep breakfast simple." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: { DEFAULT: '#b84b27', dark: '#8f3518' },
-            cream: '#fffaf5',
-            ink: '#211a17',
-            muted: '#716761',
-            line: '#eadfd7',
-            success: '#17834b',
-            yolk: '#f2a93b'
+            egg: '#f7f1e8',
+            cream: '#fffaf4',
+            forest: '#173f2d',
+            clay: '#b75b32',
+            clayDark: '#8a3f24',
+            rust: '#d07f53',
+            ink: '#1d1a17',
+            line: '#e7dccd',
+            muted: '#756a62',
+            success: '#1a7a4d'
           },
           fontFamily: {
-            display: ['Sora', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
             body: ['Inter', 'sans-serif']
           }
         }
@@ -45,278 +40,161 @@
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 
-<body class="bg-cream text-ink font-body">
-
-  <header class="sticky top-0 z-30 bg-cream/90 backdrop-blur border-b border-line">
-    <div class="container mx-auto w-[92%] max-w-[1100px] h-[72px] flex items-center justify-between gap-5">
-      <div class="flex items-center gap-2.5 font-display font-extrabold text-lg">
-        <img src="./images/logo.png" alt="Flezible Eggs logo" class="w-10 h-10 object-contain rounded-lg">
+<body class="bg-cream text-ink font-body min-h-screen">
+  <header class="site-header">
+    <div class="container-shell flex items-center justify-between py-4">
+      <a href="./index.html" class="brand-mark">
+        <span class="brand-emblem">🥚</span>
         <span>Flezible Eggs</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-ink/80">
-        <a href="#offers" class="hover:text-brand transition-colors">Offers</a>
-        <a href="#how" class="hover:text-brand transition-colors">How it works</a>
-        <a href="./login.html" class="hover:text-brand transition-colors"><i class="fa-regular fa-user mr-1"></i>Account</a>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-muted">
+        <a href="#offers">Offers</a>
+        <a href="#how">How it works</a>
+        <a href="./about.html">About</a>
+        <a href="./login.html">Account</a>
       </nav>
-      <button onclick="openModal()"
-        class="bg-brand hover:bg-brand-dark text-white font-display font-bold text-sm px-5 py-2.5 rounded-full transition-colors">
-        Order Now
+
+      <button id="cartToggle" type="button" class="cart-button" aria-label="Open cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartBadge" class="cart-badge hidden">0</span>
       </button>
     </div>
   </header>
 
   <main>
-    <section class="pt-16 md:pt-20 pb-14 bg-[radial-gradient(circle_at_85%_15%,rgba(184,75,39,0.14),transparent_28%)]">
-      <div class="container mx-auto w-[92%] max-w-[1100px] grid md:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
+    <section class="hero-wrap">
+      <div class="container-shell grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center py-12 md:py-16">
         <div>
-          <span class="inline-flex px-3 py-1.5 rounded-full bg-[#f6dfd4] text-brand-dark font-bold text-sm">
-            🥚 Fresh eggs for students
+          <span
+            class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[#f4ddd1] text-clayDark font-semibold text-xs uppercase tracking-[0.18em]">
+            Fresh eggs for campus life
           </span>
-          <h1 class="font-display font-extrabold tracking-tight leading-[0.98] mt-4 mb-4 text-[clamp(2.6rem,7vw,5.2rem)]">
-            Good food.<br><span class="text-brand">Simple.</span> Fresh.
+          <h1 class="font-display text-5xl md:text-6xl xl:text-7xl leading-none mt-6 mb-5 text-ink">
+            Easy egg drops for busy students.
           </h1>
-          <p class="max-w-[560px] text-muted text-lg">
-            Get fresh eggs without leaving your hostel. Order by the egg or by the crate,
-            and we'll deliver straight to your door.
+          <p class="max-w-xl text-lg text-muted leading-8">
+            Fresh, clean eggs delivered with no stress. Pick your basket, checkout in minutes, and keep your kitchen
+            stocked without leaving the dorm.
           </p>
 
-          <div class="flex flex-wrap gap-3 mt-7">
-            <div class="bg-white border border-line rounded-2xl px-5 py-3">
-              <div class="text-2xl font-display font-extrabold text-brand">₦250</div>
-              <div class="text-xs font-semibold text-muted">per normal egg</div>
-            </div>
-            <div class="bg-white border border-line rounded-2xl px-5 py-3">
-              <div class="text-2xl font-display font-extrabold text-brand">₦6,500</div>
-              <div class="text-xs font-semibold text-muted">per crate (30 eggs)</div>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-3 mt-7">
-            <button onclick="openModal()"
-              class="bg-brand hover:bg-brand-dark text-white font-display font-extrabold px-6 py-3.5 rounded-xl shadow-[0_10px_24px_rgba(184,75,39,0.2)] transition-all hover:-translate-y-0.5">
-              Order Now →
-            </button>
-            <a href="#how"
-              class="bg-white border border-line font-display font-extrabold px-6 py-3.5 rounded-xl">
-              How it works
-            </a>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="#offers" class="button-primary">Shop eggs</a>
+            <a href="#how" class="button-secondary">How it works</a>
           </div>
         </div>
 
-        <div class="rounded-[20px] overflow-hidden">
-          <img src="./images/hero-image.png" alt="Fresh eggs" class="w-full h-auto rounded-[20px]">
+        <div class="hero-visual">
+          <div class="hero-image-card">
+            <img src="./images/hero-image.png" alt="Fresh eggs on a basket" class="w-full h-full object-cover" />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- OFFERS -->
-    <section class="py-16 md:py-20" id="offers">
-      <div class="container mx-auto w-[92%] max-w-[1100px]">
-        <div class="flex items-end justify-between flex-wrap gap-3 mb-2">
-          <h2 class="font-display font-extrabold tracking-tight text-[clamp(2rem,5vw,3rem)]">Our Offers</h2>
-        </div>
-        <p class="text-muted max-w-[650px] mb-9">Pick a size — bigger orders cost less per egg.</p>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-          <button onclick="openModal()" class="offer-card">
-            <span class="offer-badge bg-yolk text-ink">Best value</span>
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">1 Crate</div>
-            <div class="text-xs text-muted mb-3">30 eggs</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦6,500</div>
-            <div class="text-[11px] text-muted">≈ ₦217 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">1/2 Crate</div>
-            <div class="text-xs text-muted mb-3">15 eggs</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦3,300</div>
-            <div class="text-[11px] text-muted">≈ ₦220 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">1/3 Crate</div>
-            <div class="text-xs text-muted mb-3">10 eggs</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦2,300</div>
-            <div class="text-[11px] text-muted">≈ ₦230 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">8 Eggs</div>
-            <div class="text-xs text-muted mb-3">8 eggs</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦1,900</div>
-            <div class="text-[11px] text-muted">≈ ₦238 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">1/4 Crate</div>
-            <div class="text-xs text-muted mb-3">7 eggs</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦1,650</div>
-            <div class="text-[11px] text-muted">≈ ₦236 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">5 Eggs</div>
-            <div class="text-xs text-muted mb-3">Quick top-up</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦1,150</div>
-            <div class="text-[11px] text-muted">≈ ₦230 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">3 Eggs</div>
-            <div class="text-xs text-muted mb-3">Small snack</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦700</div>
-            <div class="text-[11px] text-muted">≈ ₦233 / egg</div>
-          </button>
-
-          <button onclick="openModal()" class="offer-card">
-            <div class="text-3xl mb-2">🥚</div>
-            <div class="font-display font-bold">1 Egg</div>
-            <div class="text-xs text-muted mb-3">Boiled or raw</div>
-            <div class="font-display font-extrabold text-brand text-xl">₦250</div>
-            <div class="text-[11px] text-muted">Single egg</div>
-          </button>
-
-        </div>
+    <section id="offers" class="container-shell py-12 md:py-18">
+      <div class="mb-8">
+        <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold mb-2">Our offers</p>
+        <h2 class="font-display text-4xl md:text-5xl text-ink">Choose your basket</h2>
       </div>
+
+      <div id="productsGrid" class="product-grid"></div>
     </section>
 
-    <section class="py-16 md:py-20 bg-white border-y border-line">
-      <div class="container mx-auto w-[92%] max-w-[1100px]">
-        <h2 class="font-display font-extrabold tracking-tight text-[clamp(2rem,5vw,3rem)] mb-2">Why Flezible Eggs?</h2>
-        <p class="text-muted max-w-[650px]">Built around one simple idea: make getting eggs convenient for students.</p>
+    <section class="bg-white border-y border-line py-12 md:py-16">
+      <div class="container-shell">
+        <div class="max-w-2xl">
+          <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold mb-2">Why students love us</p>
+          <h2 class="font-display text-4xl md:text-5xl text-ink">Fresh, dependable, simple.</h2>
+        </div>
 
-        <div class="grid md:grid-cols-3 gap-4 mt-8">
-          <article class="bg-cream border border-line rounded-[20px] p-6">
-            <i class="fa-solid fa-egg text-2xl text-brand"></i>
-            <h3 class="font-display font-bold mt-3 mb-1">Fresh Eggs</h3>
-            <p class="text-muted m-0">Fresh eggs ready for your meal, snack, or everyday needs.</p>
+        <div class="grid md:grid-cols-3 gap-5 mt-8">
+          <article class="site-card p-6">
+            <div class="feature-icon"><i class="fa-solid fa-egg"></i></div>
+            <h3 class="font-display text-2xl mt-4 mb-2">Always fresh</h3>
+            <p class="text-muted leading-7">Stocked daily and delivered with care so every carton feels as fresh as the
+              first.</p>
           </article>
-          <article class="bg-cream border border-line rounded-[20px] p-6">
-            <i class="fa-solid fa-motorcycle text-2xl text-brand"></i>
-            <h3 class="font-display font-bold mt-3 mb-1">We Deliver</h3>
-            <p class="text-muted m-0">No need to go searching around. Place an order and we'll arrange delivery.</p>
+          <article class="site-card p-6">
+            <div class="feature-icon"><i class="fa-solid fa-motorcycle"></i></div>
+            <h3 class="font-display text-2xl mt-4 mb-2">Campus delivery</h3>
+            <p class="text-muted leading-7">We bring your order to your hostel or room at the moment it is most
+              convenient for you.</p>
           </article>
-          <article class="bg-cream border border-line rounded-[20px] p-6">
-            <i class="fa-solid fa-tags text-2xl text-brand"></i>
-            <h3 class="font-display font-bold mt-3 mb-1">Prices That Scale</h3>
-            <p class="text-muted m-0">Order more, pay less per egg — no confusing packages.</p>
+          <article class="site-card p-6">
+            <div class="feature-icon"><i class="fa-solid fa-wallet"></i></div>
+            <h3 class="font-display text-2xl mt-4 mb-2">Flexible payment</h3>
+            <p class="text-muted leading-7">Choose between paying on delivery or paying in advance through the website
+              checkout.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="py-16 md:py-20 bg-ink text-white" id="how">
-      <div class="container mx-auto w-[92%] max-w-[1100px]">
-        <h2 class="font-display font-extrabold tracking-tight text-[clamp(2rem,5vw,3rem)] mb-2">How to order</h2>
-        <p class="text-[#cfc4be] max-w-[650px]">Ordering takes less than a minute.</p>
+    <section id="how" class="bg-forest text-white py-12 md:py-16">
+      <div class="container-shell">
+        <div class="mb-8">
+          <p class="text-xs uppercase tracking-[0.2em] text-[#e7c7b7] font-bold mb-2">How it works</p>
+          <h2 class="font-display text-4xl md:text-5xl">Three easy steps</h2>
+        </div>
 
-        <div class="grid md:grid-cols-3 gap-4 mt-8">
-          <article class="border border-[#493d37] rounded-[20px] p-6">
-            <div class="w-10 h-10 grid place-items-center rounded-full bg-brand font-display font-black">1</div>
-            <h3 class="font-display font-bold mt-3 mb-1">Click Order Now</h3>
-            <p class="m-0 text-[#cfc4be]">Tell us your name, quantity, and delivery details.</p>
+        <div class="grid md:grid-cols-3 gap-5">
+          <article class="p-6 rounded-[28px] border border-white/10 bg-white/5">
+            <div class="step-circle">1</div>
+            <h3 class="font-display text-2xl mt-5 mb-2">Add eggs</h3>
+            <p class="text-[#e8ded7] leading-7">Select your preferred pack and adjust the quantity in the cart.</p>
           </article>
-          <article class="border border-[#493d37] rounded-[20px] p-6">
-            <div class="w-10 h-10 grid place-items-center rounded-full bg-brand font-display font-black">2</div>
-            <h3 class="font-display font-bold mt-3 mb-1">Confirm on WhatsApp</h3>
-            <p class="m-0 text-[#cfc4be]">Your order details will be prepared automatically in WhatsApp.</p>
+          <article class="p-6 rounded-[28px] border border-white/10 bg-white/5">
+            <div class="step-circle">2</div>
+            <h3 class="font-display text-2xl mt-5 mb-2">Checkout</h3>
+            <p class="text-[#e8ded7] leading-7">Confirm delivery details and choose whether to pay on delivery or
+              through the website.</p>
           </article>
-          <article class="border border-[#493d37] rounded-[20px] p-6">
-            <div class="w-10 h-10 grid place-items-center rounded-full bg-brand font-display font-black">3</div>
-            <h3 class="font-display font-bold mt-3 mb-1">Receive Your Eggs</h3>
-            <p class="m-0 text-[#cfc4be]">We'll respond on WhatsApp and arrange your delivery.</p>
+          <article class="p-6 rounded-[28px] border border-white/10 bg-white/5">
+            <div class="step-circle">3</div>
+            <h3 class="font-display text-2xl mt-5 mb-2">Enjoy delivery</h3>
+            <p class="text-[#e8ded7] leading-7">Sit back while your fresh order is packed and delivered to your door.
+            </p>
           </article>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="py-8 bg-[#17120f] text-[#bfb3ac] text-center text-sm">
-    © 2026 Flezible Eggs · Fresh eggs for students
-    <br><br>
-    Built By
-    <a href="https://www.facebook.com/flezible" class="inline-flex items-center gap-2 text-white font-semibold">
-      <img src="./images/logo.png" alt="Flezible Eggs logo" class="w-6 h-6 rounded-full">
-      Flezible Technologies
-    </a>
+  <footer class="site-footer">
+    <div class="container-shell flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2026 Flezible Eggs</p>
+      <nav class="flex gap-5 text-sm text-muted">
+        <a href="./about.html">About</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./privacy.html">Privacy</a>
+      </nav>
+    </div>
   </footer>
 
-  <!-- ORDER MODAL -->
-  <div id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle"
-    class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-[rgba(20,14,11,0.68)]">
-    <div class="w-full max-w-[520px] max-h-[92vh] overflow-auto bg-white rounded-[24px] p-6 relative shadow-2xl">
-      <button onclick="closeModal()" aria-label="Close"
-        class="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#f3eeeb] text-xl">×</button>
-      <h2 id="orderTitle" class="font-display font-extrabold text-xl mr-10 mb-1">Place your order 🥚</h2>
-      <p class="text-muted mt-0">Fill this in and we'll take you to WhatsApp to confirm your order.</p>
-
-      <form id="orderForm" class="grid gap-3.5 mt-5">
-        <div>
-          <label for="name" class="font-bold text-sm">Your name</label>
-          <input id="name" required placeholder="e.g. Freedom" class="field">
-        </div>
-
-        <div>
-          <label for="phone" class="font-bold text-sm">Your phone number</label>
-          <input id="phone" type="tel" required placeholder="e.g. 08012345678" class="field">
-        </div>
-
-        <div>
-          <label for="smallQuantity" class="font-bold text-sm">Small Eggs (₦150 each)</label>
-          <div class="num-inp-wrap">
-            <button type="button" onclick="decrementSmall()">-</button>
-            <input id="smallQuantity" type="number" min="0" value="0" step="1" />
-            <button type="button" onclick="incrementSmall()">+</button>
-          </div>
-        </div>
-
-        <div>
-          <label for="normalQuantity" class="font-bold text-sm">Normal Size Eggs (₦250 each)</label>
-          <div class="num-inp-wrap">
-            <button type="button" onclick="decrementNormal()">-</button>
-            <input id="normalQuantity" type="number" min="0" value="0" step="1" />
-            <button type="button" onclick="incrementNormal()">+</button>
-          </div>
-        </div>
-
-        <div>
-          <label for="delivery" class="font-bold text-sm">Delivery location</label>
-          <input id="delivery" required placeholder="e.g. Room 12, Block B, Hostel" class="field">
-        </div>
-
-        <div>
-          <label for="type" class="font-bold text-sm">Egg preparation</label>
-          <select id="type" class="field">
-            <option>Raw eggs</option>
-            <option>Cooked eggs</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="note" class="font-bold text-sm">Additional note (optional)</label>
-          <textarea id="note" placeholder="Any extra information?" class="field min-h-[82px] resize-y"></textarea>
-        </div>
-
-        <div class="bg-[#fff4ed] rounded-2xl p-3.5 flex flex-col gap-1.5 font-extrabold">
-          <div class="flex justify-between"><span>Total Number of Eggs:</span><span id="totalEggs">0 eggs</span></div>
-          <div class="flex justify-between border-t border-[#ffd8cc] pt-1.5"><span>Total Price:</span><span id="total">₦0</span></div>
-        </div>
-
-        <button type="submit"
-          class="w-full mt-1 rounded-xl p-3.5 bg-success text-white font-display font-black">Continue to WhatsApp →</button>
-        <p class="text-xs text-muted text-center mb-0">You'll review the message on WhatsApp before sending it.</p>
-      </form>
+  <div id="cartOverlay" class="cart-overlay hidden"></div>
+  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart">
+    <div class="cart-header">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold">Cart</p>
+        <h2 class="font-display text-3xl">Your order</h2>
+      </div>
+      <button id="cartCloseBtn" type="button" class="close-modal-btn" aria-label="Close cart">×</button>
     </div>
-  </div>
 
+    <div id="cartItems" class="cart-body"></div>
+
+    <div class="cart-footer">
+      <div class="flex items-center justify-between text-sm text-muted">
+        <span>Total</span>
+        <strong id="cartTotal" class="text-xl text-ink">₦0</strong>
+      </div>
+      <button id="cartCheckoutBtn" type="button" class="button-primary w-full mt-4" disabled>Checkout</button>
+    </div>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabase-client.js"></script>
   <script src="./js/script.js"></script>
 </body>
 

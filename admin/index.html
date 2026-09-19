@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Flezible Eggs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            egg: '#f7f1e8',
+            cream: '#fffaf4',
+            forest: '#173f2d',
+            clay: '#b75b32',
+            clayDark: '#8a3f24',
+            ink: '#1d1a17',
+            line: '#e7dccd',
+            muted: '#756a62',
+            success: '#1a7a4d',
+            danger: '#b63f2f'
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="bg-cream text-ink font-body min-h-screen">
+  <header class="site-header">
+    <div class="container-shell flex items-center justify-between py-4">
+      <a href="../index.html" class="brand-mark">
+        <span class="brand-emblem">🥚</span>
+        <span>Flezible Eggs</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="../dashboard.html" class="text-sm font-semibold text-muted">Dashboard</a>
+        <button id="logoutBtn" class="button-secondary text-sm px-4 py-2">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-shell py-8 md:py-12">
+    <div class="mb-6">
+      <p class="text-xs uppercase tracking-[0.2em] text-clay font-bold mb-2">Admin</p>
+      <h1 class="font-display text-4xl">Order operations</h1>
+    </div>
+
+    <div class="grid xl:grid-cols-[0.95fr_1.35fr] gap-6">
+      <aside class="site-card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-display text-2xl">Orders</h2>
+          <select id="statusFilter" class="field !p-2 !text-sm !w-auto min-w-[150px]">
+            <option value="all">All statuses</option>
+            <option value="submitted">Submitted</option>
+            <option value="approved">Approved</option>
+            <option value="in_delivery">In delivery</option>
+            <option value="delivered">Delivered</option>
+            <option value="completed">Completed</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div id="adminOrderList" class="space-y-3"></div>
+      </aside>
+
+      <section class="site-card p-5 md:p-6">
+        <div id="adminOrderDetail" class="min-h-[380px]">
+          <div class="empty-state">Select an order to review it.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-shell flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2026 Flezible Eggs</p>
+      <nav class="flex gap-5 text-sm text-muted">
+        <a href="../about.html">About</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+
+</html>
