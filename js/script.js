@@ -184,28 +184,31 @@
 
   function createWhatsAppMessage(orderItems, deliveryAddress, preparation, note, customerName, orderId) {
     const lines = [
-      'Hello Flezible Eggs! 🥚',
+      '🥚 *FLEZIBLE EGGS — New Order*',
+      '━━━━━━━━━━━━━━━━━━━',
       '',
-      '*New Order*' + (orderId ? ` (Ref: #${orderId.slice(0, 8)})` : ''),
-      ...(customerName ? ['Customer: ' + customerName] : []),
-      'Delivery address: ' + deliveryAddress,
-      'Preparation: ' + preparation,
+      ...(orderId ? [`📋 Ref: #${orderId.slice(0, 8)}`] : []),
+      ...(customerName ? [`👤 Customer: ${customerName}`] : []),
+      `📍 Delivery: ${deliveryAddress}`,
       '',
-      'Order items:'
+      '🛒 *Order Items:*'
     ];
 
     for (const item of orderItems) {
-      lines.push(`• ${item.name} x${item.quantity} (${formatMoney(item.price)})`);
+      lines.push(`• ${item.name} x${item.quantity} — ${formatMoney(Number(item.price) * Number(item.quantity || 0))}`);
     }
 
     const total = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity || 0)), 0);
     lines.push('');
-    lines.push('Total: ' + formatMoney(total));
+    lines.push(`💰 *Total: ${formatMoney(total)}*`);
+    lines.push(`🍳 Preparation: ${preparation}`);
 
     if (note) {
-      lines.push('Note: ' + note);
+      lines.push(`📝 Note: ${note}`);
     }
 
+    lines.push('');
+    lines.push('Thank you! 🙏');
     return encodeURIComponent(lines.join('\n'));
   }
 
@@ -481,7 +484,8 @@
           })
           .filter(Boolean);
 
-        const message = createWhatsAppMessage(productRows, trimmedAddress, preparation, note, session.user.id);
+        const customerName = session.user.user_metadata?.full_name || session.user.email || '';
+        const message = createWhatsAppMessage(productRows, trimmedAddress, preparation, note, customerName, orderId);
         const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
         clearCart();
         window.location.href = waUrl;

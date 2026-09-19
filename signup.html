@@ -19,9 +19,10 @@
       theme: {
         extend: {
           colors: {
-            brand: { DEFAULT: '#b84b27', dark: '#8f3518' },
-            cream: '#fffaf5', ink: '#211a17', muted: '#716761',
-            line: '#eadfd7', success: '#17834b', yolk: '#f2a93b'
+            dark: '#0f0f17', surface: '#1a1a2e', surfaceRaised: '#252540', amber: '#f59e0b', light: '#f5f5f5',
+            brand: { DEFAULT: '#f59e0b', dark: '#d97706' },
+            cream: '#0f0f17', ink: '#f5f5f5', muted: '#8888a0',
+            line: '#2a2a40', success: '#22c55e', yolk: '#fbbf24'
           },
           fontFamily: { display: ['Sora', 'sans-serif'], body: ['Inter', 'sans-serif'] }
         }
@@ -32,16 +33,17 @@
     .field {
       width: 100%;
       padding: 12px 14px 12px 40px;
-      border: 1px solid #eadfd7;
+      border: 1px solid #2a2a40;
       border-radius: 10px;
       font-size: 15px;
-      background: #fffdfa;
+      background: #252540;
+      color: #f5f5f5;
       outline: none;
     }
 
     .field:focus {
-      border-color: #b84b27;
-      box-shadow: 0 0 0 3px rgba(184, 75, 39, .1);
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
     }
 
     .field-wrap {
@@ -53,16 +55,16 @@
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: #716761;
+      color: #8888a0;
     }
   </style>
 </head>
 
-<body class="bg-cream text-ink font-body min-h-screen flex items-center justify-center p-6">
+<body class="bg-dark text-light font-body min-h-screen flex items-center justify-center p-6">
 
-  <div class="w-full max-w-[380px] bg-white border border-line rounded-2xl p-8 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+  <div class="auth-card w-full max-w-[380px]">
     <div class="flex justify-center mb-3">
-      <img src="./images/logo.png" alt="Flezible Eggs logo" class="w-[100px] h-[100px] rounded-sm" />
+      <img src="./images/logo.png" alt="Flezible Eggs logo" class="w-[90px] h-[90px] rounded-xl" />
     </div>
     <h1 class="font-display font-extrabold text-xl text-center mb-6">Create your Flezible Eggs account</h1>
 
@@ -91,8 +93,7 @@
         </div>
       </div>
 
-      <button type="submit" id="submit-btn"
-        class="w-full py-3 bg-brand hover:bg-brand-dark text-white font-display font-bold rounded-xl transition-colors disabled:opacity-60">
+      <button type="submit" id="submit-btn" class="button-primary w-full">
         Sign Up
       </button>
       <div class="msg text-sm text-center min-h-[18px]" id="msg"></div>
